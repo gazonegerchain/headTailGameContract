@@ -1,11 +1,5 @@
-npm install --save solc
+# Игра орел и решка 
 
-node compile.js
+## Необходимые настройки
+```npm install --save solc mocha ganache-cli web3@1.0.0-beta.26 truffle-hdwallet-provider```
 
-npm install --save mocha
-
-npm install --save ganache-cli
-
-npm install --save web3@1.0.0-beta.26
-
-npm install truffle-hdwallet-provider
