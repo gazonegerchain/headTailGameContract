@@ -5,5 +5,6 @@
 
 ## Команды
 ```bash node deploy.js ``` - размещение контракта
+
 ```bash npm run test ``` - тестирование
 
