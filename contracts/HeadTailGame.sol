@@ -20,7 +20,7 @@ contract HeadTailGame {
 
         head = msg.sender;
     }
-т
+
     function enterTail() public payable {
         // Head must be empty
         require(tail == address(0));
