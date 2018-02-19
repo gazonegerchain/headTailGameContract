@@ -6,4 +6,4 @@ npm install --save mocha
 
 npm install --save ganache-cli
 
-npm install --save web3@1.0.0.-beta.26
+npm install --save web3@1.0.0-beta.26
