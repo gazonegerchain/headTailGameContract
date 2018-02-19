@@ -41,6 +41,10 @@ contract HeadTailGame {
         } else {
             tail.transfer(this.balance);
         }
+
+        // Reset players
+        head = address(0);
+        tail = address(0);
     }
 
     modifier restricted() {
