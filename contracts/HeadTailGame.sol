@@ -2,8 +2,15 @@ pragma solidity ^0.4.17;
 
 contract HeadTailGame {
 
-    address public head;
-    address public tail;
+	uint8 fee = 1;
+
+	struct Player {
+		address account;
+		uint deposit;
+	}
+
+    Player public head;
+    Player public tail;
     address public dealer;
     
     function HeadTailGame() public {
@@ -11,44 +18,61 @@ contract HeadTailGame {
         dealer = msg.sender;
     }
 
-    function enterHead() public payable {
+	function returnChange() private {
+		if (tail.deposit > head.deposit) {
+			tail.account.transfer(tail.deposit - head.deposit);
+		} else {
+			head.account.transfer(head.deposit - tail.deposit);
+		}
+	}
+
+    function enterHead() public notDealer payable {
         // Head must be empty
-        require(head == address(0));
+        require(head.account == address(0));
 
         // Minimal value
         require(msg.value > 0.01 ether);
 
-        head = msg.sender;
+        head.account = msg.sender;
+		head.deposit = msg.value;
     }
 
-    function enterTail() public payable {
+    function enterTail() public notDealer payable {
         // Head must be empty
-        require(tail == address(0));
+        require(tail.account == address(0));
 
         // Minimal value
         require(msg.value > 0.01 ether);
 
-        tail = msg.sender;
+        tail.account = msg.sender;
+		tail.deposit = msg.value;
     }
+	
+	modifier notDealer() {
+		require(msg.sender != dealer);
+		_;
+	}
 
     function pickWinner() public restricted {
         // Players exist
-        require(head != address(0));
-        require(tail != address(0));
+        require(head.account != address(0));
+        require(tail.account != address(0));
 
-	// Payment to the winner
+		returnChange();
+
+	    // Payment to the winner
         if (randomBool()) {
-            head.transfer(this.balance * 0.99);
+            head.account.transfer(this.balance * (100 - fee) / 100);
         } else {
-            tail.transfer(this.balance * 0.99);
+            tail.account.transfer(this.balance * (100 - fee) / 100);
         }
-	
-	// Dealer fee
-	dealer.transfer(this.balance * 0.01);
+
+	    // Dealer fee
+	    dealer.transfer(this.balance);
 	
         // Reset players
-        head = address(0);
-        tail = address(0);
+		head = Player(address(0), 0);
+		tail = Player(address(0), 0);
     }
 
     modifier restricted() {
@@ -57,7 +81,8 @@ contract HeadTailGame {
     }
 
     function randomBool() private view returns (bool) {
-        return bool(uint(keccak256(block.difficulty, now, head, tail)) % 2 != 0);
+        return bool(uint(keccak256(block.difficulty, now,
+					head.account, tail.account)) % 2 != 0);
     }
 
 }
