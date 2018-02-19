@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/gazonegerchain/headTailGameContract/issues"
   },
-  "homepage": "https://github.com/gazonegerchain/headTailGameContract#readme"
+  "homepage": "https://github.com/gazonegerchain/headTailGameContract#readme",
+  "dependencies": {
+    "solc": "^0.4.20"
+  }
 }
