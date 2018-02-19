@@ -5,7 +5,7 @@ contract HeadTailGame {
     address public head;
     address public tail;
     address public dealer;
-
+    
     function HeadTailGame() public {
         // Dealer create game
         dealer = msg.sender;
@@ -36,12 +36,16 @@ contract HeadTailGame {
         require(head != address(0));
         require(tail != address(0));
 
+	// Payment to the winner
         if (randomBool()) {
-            head.transfer(this.balance);
+            head.transfer(this.balance * 0.99);
         } else {
-            tail.transfer(this.balance);
+            tail.transfer(this.balance * 0.99);
         }
-
+	
+	// Dealer fee
+	dealer.transfer(this.balance * 0.01);
+	
         // Reset players
         head = address(0);
         tail = address(0);
