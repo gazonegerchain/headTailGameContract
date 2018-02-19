@@ -1,10 +1,10 @@
 # Игра орел и решка 
 
 ## Необходимые настройки для локального запуска
-```bash npm install --save solc mocha ganache-cli web3@1.0.0-beta.26 truffle-hdwallet-provider```
+```npm install --save solc mocha ganache-cli web3@1.0.0-beta.26 truffle-hdwallet-provider```
 
 ## Команды
-```bash node deploy.js ``` - размещение контракта
+```node deploy.js ``` - размещение контракта
 
-```bash npm run test ``` - тестирование
+```npm run test ``` - тестирование
 
