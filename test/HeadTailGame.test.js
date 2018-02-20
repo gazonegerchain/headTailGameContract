@@ -17,6 +17,7 @@ beforeEach(async () => {
 });
 
 describe('Inbox', () => {
+	
 	it('deploys a contract', () => {
     	assert.ok(game.options.address);
   	});
@@ -32,7 +33,7 @@ describe('Inbox', () => {
 			assert(err);
 		}
 	});
-	
+
 	it('player should be unique', () => {
 		game.methods.enterHead().send({
 				from: accounts[1],
